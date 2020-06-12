@@ -58,26 +58,28 @@ export default {
   mounted: function () {
     const store = this.$store
     console.log('Dashboard()')
-    fetch('https://api.tissini.app/api/v1/stock/multivendor/' + this.customer.id)
-      .then(function (response) {
-        return response.json()
-      })
-      .then(function (myJson) {
-        console.log('Resp al multivendor(): ', myJson)
-        store.commit('setProductInmDel', myJson)
-      })
-    fetch('https://api.tissini.app/api/v2/categories')
-      .then(function (response) { return response.json() })
-      .then(function (myJson) {
-        console.log('Resp categorias(): ', myJson)
-        store.commit('setCategoriesShow', myJson)
-      })
-    fetch('https://api.tissini.app/api/v1/categories/sections')
-      .then(function (response) { return response.json() })
-      .then(function (myJson) {
-        console.log('Resp sections(): ', myJson)
-        store.commit('setSection', myJson)
-      })
+    if (this.customer) {
+      fetch('https://api.tissini.app/api/v1/stock/multivendor/' + this.customer.id)
+        .then(function (response) {
+          return response.json()
+        })
+        .then(function (myJson) {
+          store.commit('setProductInmDel', myJson)
+        })
+      fetch('https://api.tissini.app/api/v2/categories')
+        .then(function (response) { return response.json() })
+        .then(function (myJson) {
+          store.commit('setCategoriesShow', myJson)
+        })
+      fetch('https://api.tissini.app/api/v1/categories/sections')
+        .then(function (response) { return response.json() })
+        .then(function (myJson) {
+          store.commit('setSection', myJson)
+        })
+    } else {
+      alert('No posee sesión iniciada!')
+      this.$router.push({ path: '/' })
+    }
   },
   methods: {
     goRoute: function () {

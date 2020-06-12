@@ -1,16 +1,16 @@
 <template>
   <footer class="footer">
-    <a href="">
+    <a @click="goRoute('dashboard')">
       <div class="btn-content">
-        <span>Categorías</span>
+        <span :class="[currentPage.includes('dashboard') ? activeClass : '']">Categorías</span>
       </div>
     </a>
-    <a href="">
+    <a @click="goCatalogue">
       <div class="btn-content">
-        <span>Catálogo</span>
+        <span :class="[currentPage.includes('catalogue') ? activeClass : '']">Catálogo</span>
       </div>
     </a>
-    <a href="">
+    <a>
       <div class="btn-content">
         <span>Carrito</span>
       </div>
@@ -20,11 +20,36 @@
 
 <script>
 export default {
-  name: 'Footer'
+  name: 'Footer',
+  methods: {
+    goRoute: function (path) {
+      this.$router.push('/' + path)
+    },
+    goCatalogue: function () {
+      this.$router.push({ name: 'Catalogue', params: { id: 1 } })
+    }
+  },
+  data: function () {
+    return {
+      activeClass: 'active-link'
+    }
+  },
+  computed: {
+    currentPage () {
+      return this.$route.path
+    }
+  },
+  mounted: function () {
+    console.log('Footer(): ', this.currentPage)
+  }
 }
 </script>
 
 <style lang="scss">
+.active-link {
+  color: #f06292 !important;
+  font-size: 1rem !important;
+}
 .footer {
   display: flex;
   align-items: center;
@@ -43,6 +68,7 @@ export default {
     width: 100%;
     height: 100%;
     text-decoration: none;
+    cursor: pointer;
     &:hover {
       background: rgba(0,0,0,.1);
       -webkit-transition: .3s cubic-bezier(.25,.8,.5,1);
@@ -56,7 +82,7 @@ export default {
     align-items: center;
     span {
       font-size: .8rem;
-      color: rgba(0,0,0,.54)!important;
+      color: rgba(0,0,0,.54);
     }
 
   }

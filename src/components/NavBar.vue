@@ -2,8 +2,8 @@
   <nav class="navbar">
     <div class="title">{{ name }}</div>
     <div class="actions">
-      <a href="#">&#9990;</a>
-      <a href="#">&#10006;</a>
+      <a>&#9990;</a>
+      <a @click="logout">&#10006;</a>
     </div>
   </nav>
 </template>
@@ -14,6 +14,12 @@ export default {
   computed: {
     name () {
       return this.$store.state.customer.name
+    }
+  },
+  methods: {
+    logout: function () {
+      const navigate = this.$router
+      navigate.push({ path: '/' })
     }
   }
 }
@@ -46,6 +52,7 @@ export default {
       font-size: 1.8rem;
       text-decoration: none;
       margin: 0 1rem;
+      cursor: pointer;
       &:hover {
         background: #ddd;
         color: black;

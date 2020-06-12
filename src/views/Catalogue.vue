@@ -2,10 +2,17 @@
   <div>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <NavBar />
-    <div class="container-delivery">
+    <div class="container-delivery" v-if="products.length > 0">
       <div class="container-info-cat">
-        <div class="navigation">
-          <a>Categorías</a> <span class="symbol">&#x279C;</span> <span class="category">{{ category }}</span>
+        <div class="navigation" v-if="!breadcrumbs">
+          <router-link to="/dashboard">Categorías </router-link><span class="symbol">&#x279C;</span> <span class="category">{{ category }}</span>
+        </div>
+        <div class="navigation" v-else>
+          <router-link to="/dashboard">Categorías </router-link>
+          <span class="symbol">&#x279C;</span>
+          <a @click="loadData(idCategory)"> {{ categoryMain }} </a>
+          <span class="symbol">&#x279C;</span>
+          <span class="category">{{ category }}</span>
         </div>
 
         <div v-if="categories.length > 0">
@@ -23,7 +30,7 @@
           <label>Productos</label>
         </div>
         <div class="producto-detail" v-for="prod in products" :key="prod.id">
-          <img :src="'https://api.tissini.app' + prod.images[0].url" style="width:100%">
+          <img :src="[prod.images.length > 0 ? 'https://api.tissini.app' + prod.images[0].url : 'https://api.tissini.app/img/products/not_found.jpg' ]" style="width:100%">
           <div class="info">
             <button>&#128722; Agregar</button>
             <span>${{ prod.price }}</span>
@@ -49,12 +56,18 @@ export default {
     return {
       idCatalogue: this.$route.params.id,
       category: '',
+      categoryMain: '',
+      idCategory: null,
       categories: [],
       products: [],
-      slideIndex: 1
+      slideIndex: 1,
+      breadcrumbs: null
     }
   },
   computed: {
+    customer () {
+      return this.$store.state.customer
+    }
   },
   methods: {
     plusDivs: function (n) {
@@ -69,18 +82,37 @@ export default {
         x[i].style.display = 'none'
       }
       x[this.slideIndex - 1].style.display = 'block'
+    },
+    goCatalogue: function (id) {
+      const navigate = this.$router
+      navigate.push({ name: 'Catalogue', params: { id: id } })
+    },
+    loadData: function (idCustom = null) {
+      const id = (!idCustom) ? this.idCatalogue : idCustom
+      fetch('https://api.tissini.app/api/v2/categories/' + id + '/products')
+        .then(response => response.json())
+        .then((myJson) => {
+          if (myJson.categories.parent_id) {
+            this.idCategory = myJson.categories.parent_id
+            this.category = myJson.categories.name
+            this.categoryMain = myJson.categories.category
+          } else {
+            this.category = myJson.categories.category
+          }
+          this.categories = myJson.categories.categories
+          this.products = myJson.products
+          this.breadcrumbs = myJson.categories.parent_id
+          console.log('Resp Catalogos: ', myJson)
+        })
     }
   },
   mounted: function () {
-    console.log('Catalogo( -> )', this.idCatalogue)
-    fetch('https://api.tissini.app/api/v2/categories/' + this.idCatalogue + '/products')
-      .then(response => response.json())
-      .then((myJson) => {
-        this.category = myJson.categories.category
-        this.categories = myJson.categories.categories
-        this.products = myJson.products
-        console.log('Resp Catalogos: ', myJson)
-      })
+    if (this.customer) {
+      this.loadData(null)
+    } else {
+      alert('No posee sesión iniciada!')
+      this.$router.push({ path: '/' })
+    }
   },
   updated: function () {
     if (this.categories.length > 0) {
@@ -110,6 +142,8 @@ export default {
     a {
       color: #f06292;
       text-decoration: none;
+      text-transform: capitalize;
+      cursor: pointer;
     }
     .symbol {
 
