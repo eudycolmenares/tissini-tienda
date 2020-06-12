@@ -89,9 +89,12 @@ export default {
     },
     loadData: function (idCustom = null) {
       const id = (!idCustom) ? this.idCatalogue : idCustom
+      const store = this.$store
+      store.state.spinner.style.display = 'flex'
       fetch('https://api.tissini.app/api/v2/categories/' + id + '/products')
         .then(response => response.json())
         .then((myJson) => {
+          store.state.spinner.style.display = 'none'
           if (myJson.categories.parent_id) {
             this.idCategory = myJson.categories.parent_id
             this.category = myJson.categories.name

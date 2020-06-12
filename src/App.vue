@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <router-view/>
+    <div class="spinner-loader" id="spinner-loader"><img src="~@/assets/imgs/loader.gif"></div>
   </div>
 </template>
 
@@ -24,5 +25,17 @@
       color: #42b983;
     }
   }
+}
+#spinner-loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(0,0,0,.6);
+  height: 100%;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 </style>

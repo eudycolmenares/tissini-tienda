@@ -59,6 +59,7 @@ export default {
     const store = this.$store
     console.log('Dashboard()')
     if (this.customer) {
+      store.state.spinner.style.display = 'flex'
       fetch('https://api.tissini.app/api/v1/stock/multivendor/' + this.customer.id)
         .then(function (response) {
           return response.json()
@@ -74,6 +75,7 @@ export default {
       fetch('https://api.tissini.app/api/v1/categories/sections')
         .then(function (response) { return response.json() })
         .then(function (myJson) {
+          store.state.spinner.style.display = 'none'
           store.commit('setSection', myJson)
         })
     } else {

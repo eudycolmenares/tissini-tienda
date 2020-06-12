@@ -25,11 +25,14 @@ export default {
   },
   mounted: function () {
     console.log('Home')
+    console.log(document.getElementById('spinner-loader'))
+    this.$store.commit('setSpinner', document.getElementById('spinner-loader'))
   },
   methods: {
     getValue: function () {
       const navigate = this.$router
       const store = this.$store
+      this.$store.state.spinner.style.display = 'flex'
       fetch('https://api.tissini.app/api/v1/login/client', {
         method: 'POST',
         body: JSON.stringify({ mobilephone: this.valueInput }),
@@ -41,6 +44,7 @@ export default {
           return response.json()
         })
         .then(function (myJson) {
+          store.state.spinner.style.display = 'none'
           console.log('Resp al login(): ', myJson)
           if ('customer' in myJson) {
             store.commit('setInitial', myJson)
