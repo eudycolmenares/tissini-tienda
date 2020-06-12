@@ -2,7 +2,7 @@
   <div>
     <NavBar />
     <div class="container-dashboard">
-      <div class="container-info">
+      <div class="container-info-dash">
         <div class="card-main" style="background: url('https://mitienda.moda/img/productos-de-entrega-inmediata.e07d1e57.png')">
           <button v-on:click="goRoute">Ver más</button>
         </div>
@@ -19,7 +19,7 @@
           </div>
           <div class="container-products">
             <div class="item"  v-for="prod in item.products" :key="prod.id">
-              <img :src="'https://api.tissini.app' + prod.image.url" alt="">
+              <img v-on:click="goCatalogue(prod.category_id)" :src="'https://api.tissini.app' + prod.image.url" alt="">
               <label class="categorie">{{ prod.categories.category }}</label>
               <label class="name">{{ prod.name }}</label>
               <label class="price">${{ prod.price }}</label>
@@ -99,7 +99,7 @@ export default {
   align-items: center;
   margin: 3rem 0 3.5rem 0;
 }
-.container-info {
+.container-info-dash {
   width: 31rem;
   background: aliceblue;
   display: flex;
