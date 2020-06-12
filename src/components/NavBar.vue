@@ -18,6 +18,7 @@ export default {
   },
   methods: {
     logout: function () {
+      this.$store.commit('setCustomer', null)
       const navigate = this.$router
       navigate.push({ path: '/' })
     }

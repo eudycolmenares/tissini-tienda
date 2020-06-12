@@ -13,7 +13,14 @@ export default {
   name: 'Home',
   data: function () {
     return {
-      valueInput: '7865470213'
+      valueInput: ''
+    }
+  },
+  watch: {
+    valueInput: function (val) {
+      if (val.length === 10) {
+        this.getValue()
+      }
     }
   },
   mounted: function () {
@@ -35,8 +42,12 @@ export default {
         })
         .then(function (myJson) {
           console.log('Resp al login(): ', myJson)
-          store.commit('setInitial', myJson)
-          navigate.push('/dashboard')
+          if ('customer' in myJson) {
+            store.commit('setInitial', myJson)
+            navigate.push('/dashboard')
+          } else {
+            alert('Problemas al iniciar sesión!')
+          }
         })
     }
   }
