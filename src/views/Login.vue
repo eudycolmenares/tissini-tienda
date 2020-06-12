@@ -3,7 +3,7 @@
     <div class="form">
       <img src="@/assets/imgs/logo.c752bf8f.png" alt="mitienda.moda" />
       <p>Ingresa el número de teléfono de tu asesora independiente.</p>
-      <input v-model="valueInput" type="number" @keyup.enter="getValue" maxlength="10" />
+      <input v-model="valueInput" type="text" @keyup.enter="getValue" maxlength="10" />
     </div>
   </section>
 </template>

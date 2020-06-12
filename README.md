@@ -41,4 +41,4 @@ ME PARECIÓN UN EXCELENTE FRAMEWORK DE USO MUY PRACTICO Y QUE OTORGA MUCHAS FACI
 
 Se indica a continuación url donde podrá probar la funcionalidad del sitio web:
 
-* [ENLACE](https://awesome-meninsky-7ef588.netlify.app/) - Alojada sitio web de https://www.netlify.com/
+* [ENLACE](https://naughty-noyce-b64a05.netlify.app/) - Alojada sitio web de https://www.netlify.com/
