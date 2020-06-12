@@ -131,7 +131,7 @@ export default {
 }
 .container-info-cat {
   width: 26rem;
-  background: aliceblue;
+  // background: aliceblue;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -103,7 +103,7 @@ export default {
 }
 .container-info-dash {
   width: 31rem;
-  background: aliceblue;
+  // background: aliceblue;
   display: flex;
   flex-direction: column;
   align-items: center;

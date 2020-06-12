@@ -1,7 +1,5 @@
 # TISSINI - Mi Tienda
 
-[![N|Solid](https://i.vimeocdn.com/portrait/34636551_100x100)](http:google.com)
-
 Test de desarrollo para la empresa Tissini, elaborado con el framework VUE. Del mismo no tenia conocimiento al empezar el desarrollo, pero es un lenguaje con una curva de aprendizaje media, y su documentación muy intuitiva.
 A continuación herramientas que utilice en el desarrollo:
 
