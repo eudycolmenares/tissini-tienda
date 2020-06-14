@@ -10,7 +10,8 @@ export default new Vuex.Store({
     productInmDel: [],
     categoriesShow: [],
     sections: [],
-    spinner: null
+    spinner: null,
+    ecommerce: {}
   },
   mutations: {
     setInitial (state, data) {
@@ -34,6 +35,9 @@ export default new Vuex.Store({
     },
     setSpinner (state, data) {
       state.spinner = data
+    },
+    setEcommerce (state, data) {
+      state.ecommerce = data
     }
   },
   actions: {

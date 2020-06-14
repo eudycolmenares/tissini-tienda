@@ -13,6 +13,7 @@
     <a>
       <div class="btn-content">
         <span>Carrito</span>
+        <label class="badge-cart" v-if="cart > 0">{{ cart }}</label>
       </div>
     </a>
   </footer>
@@ -37,10 +38,21 @@ export default {
   computed: {
     currentPage () {
       return this.$route.path
+    },
+    cart () {
+      const claves = Object.keys(this.$store.state.ecommerce)
+      const st = this.$store.state.ecommerce
+      let sum = 0
+      if (claves.length > 0) {
+        for (const i of claves) {
+          sum += st[i].cant
+        }
+      }
+      return sum
     }
   },
   mounted: function () {
-    console.log('Footer(): ', this.currentPage)
+    console.log('Footer(): ')
   }
 }
 </script>
@@ -80,11 +92,21 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
     span {
       font-size: .8rem;
       color: rgba(0,0,0,.54);
     }
-
+    .badge-cart {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      padding: 5px 10px;
+      border-radius: 50%;
+      background: #f06292;
+      font-weight: bold;
+      color: white;
+    }
   }
 }
 </style>

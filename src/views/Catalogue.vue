@@ -32,25 +32,28 @@
         <div class="producto-detail" v-for="prod in products" :key="prod.id">
           <img :src="[prod.images.length > 0 ? 'https://api.tissini.app' + prod.images[0].url : 'https://api.tissini.app/img/products/not_found.jpg' ]" style="width:100%">
           <div class="info">
-            <button>&#128722; Agregar</button>
+            <button @click="addToCart(prod)">&#128722; Agregar</button>
             <span>${{ prod.price }}</span>
           </div>
         </div>
       </div>
     </div>
     <Footer />
+    <Modal v-if="showModal" :data="productTmp" @close="showModal = false"></Modal>
   </div>
 </template>
 
 <script>
 import NavBar from '../components/NavBar.vue'
 import Footer from '../components/Footer.vue'
+import Modal from '../components/Modal.vue'
 
 export default {
   name: 'Catalogue',
   components: {
     NavBar,
-    Footer
+    Footer,
+    Modal
   },
   data: function () {
     return {
@@ -61,7 +64,9 @@ export default {
       categories: [],
       products: [],
       slideIndex: 1,
-      breadcrumbs: null
+      breadcrumbs: null,
+      showModal: false,
+      productTmp: null
     }
   },
   computed: {
@@ -107,6 +112,10 @@ export default {
           this.breadcrumbs = myJson.categories.parent_id
           console.log('Resp Catalogos: ', myJson)
         })
+    },
+    addToCart: function (item) {
+      this.productTmp = item
+      this.showModal = true
     }
   },
   mounted: function () {
@@ -192,6 +201,8 @@ export default {
         border-color: #f06292!important;
         color: white;
         text-transform: uppercase;
+        outline: none;
+        cursor: pointer;
       }
       span {
         color: #e91e63 !important;
