@@ -25,7 +25,6 @@ export default {
   },
   mounted: function () {
     console.log('Home')
-    console.log(document.getElementById('spinner-loader'))
     this.$store.commit('setSpinner', document.getElementById('spinner-loader'))
   },
   methods: {

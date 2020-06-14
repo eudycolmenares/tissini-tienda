@@ -19,6 +19,7 @@ export default {
   methods: {
     logout: function () {
       this.$store.commit('setCustomer', null)
+      this.$store.commit('setEcommerce', {})
       const navigate = this.$router
       navigate.push({ path: '/' })
     }
@@ -54,9 +55,11 @@ export default {
       text-decoration: none;
       margin: 0 1rem;
       cursor: pointer;
+      padding: 0 .25rem;
       &:hover {
         background: #ddd;
         color: black;
+        border-radius: 50%;
       }
     }
   }
